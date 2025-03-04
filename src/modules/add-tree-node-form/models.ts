@@ -1,11 +1,11 @@
 import { IBasicModalProps } from "../../shared/ui/BasicModal/models"
 
 export interface IAddTreeModalContentProps {
-    handleAdd: (nodeName: string, parentNodeId: number) => void,
+    handleAdd: (nodeName: string) => void,
     handleClose: () => void
 }
 
 export  interface IAddTreeNodeModalProps extends IBasicModalProps {
-    handleAdd: (nodeName: string, parentNodeId: number) => Promise<void>
+    handleAdd: (nodeName: string) => Promise<void>
     handleClose: () => void
 }
