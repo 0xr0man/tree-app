@@ -1,4 +1,4 @@
-import { lazy, useCallback, useState } from "react"
+import { lazy, useCallback, useMemo, useState } from "react"
 import { useAddTreeNodeMutation, useDeleteTreeNodeMutation, useEditTreeNodeMutation, useGetTreeQuery } from "../shared/api/tree/query/tree.query"
 
 
@@ -18,6 +18,9 @@ export const HomePage = () => {
     const [selectedTreeNodeName, setSelectedTreeNodeName] = useState<string>('')
 
     const { data, status } = useGetTreeQuery(import.meta.env.VITE_ROOT_TREE_NAME)
+    const memoizedTreeData = useMemo(() => {
+        return data
+    }, [data])
 
     const { mutateAsync: createNewNode } = useAddTreeNodeMutation()
     const { mutateAsync: editTreeNode } = useEditTreeNodeMutation()
@@ -73,38 +76,44 @@ export const HomePage = () => {
     return (
         <>
             <TreeViewer
-                data={data}
+                data={memoizedTreeData}
                 status={status}
                 addBtnClickHandler={addBtnClickHandler}
                 editBtnClickHandler={editBtnClickHandler}
                 deleteBtnClickHandler={deleteBtnClickHandler}
             ></TreeViewer>
 
-            <AddTreeNodeModal
-                handleAdd={handleCreateTreeNode}
-                handleClose={() => setAddTreeNodeModalOpened(false)}
-                content={null}
-                isOpen={isAddTreeNodeModalOpened}
-                header={`Add node to ${selectedTreeNodeName}`}
-            />
+            {isAddTreeNodeModalOpened &&
+                <AddTreeNodeModal
+                    handleAdd={handleCreateTreeNode}
+                    handleClose={() => setAddTreeNodeModalOpened(false)}
+                    content={null}
+                    isOpen={isAddTreeNodeModalOpened}
+                    header={`Add node to ${selectedTreeNodeName}`}
+                />
+            }
 
-            <EditTreeNodeModal
-                handleSubmit={handleEditTreeNode}
-                handleClose={() => setEditTreeNodeModalOpened(false)}
-                content={null}
-                isOpen={isEditTreeNodeModalOpened}
-                header={`Edit ${selectedTreeNodeName} node`}
-                editNodeName={selectedTreeNodeName}
-            />
+            {isEditTreeNodeModalOpened &&
+                <EditTreeNodeModal
+                    handleSubmit={handleEditTreeNode}
+                    handleClose={() => setEditTreeNodeModalOpened(false)}
+                    content={null}
+                    isOpen={isEditTreeNodeModalOpened}
+                    header={`Edit ${selectedTreeNodeName} node`}
+                    editNodeName={selectedTreeNodeName}
+                />
+            }
 
-            <DeleteTreeNodeModal
-                handleSubmit={handleDeleteTreeNode}
-                handleClose={() => setDeleteTreeNodeModalOpened(false)}
-                content={null}
-                isOpen={isDeleteTreeNodeModalOpened}
-                header={`Delete ${selectedTreeNodeName} node`}
-                deleteNodeName={selectedTreeNodeName}
-            />
+            {isDeleteTreeNodeModalOpened &&
+                <DeleteTreeNodeModal
+                    handleSubmit={handleDeleteTreeNode}
+                    handleClose={() => setDeleteTreeNodeModalOpened(false)}
+                    content={null}
+                    isOpen={isDeleteTreeNodeModalOpened}
+                    header={`Delete ${selectedTreeNodeName} node`}
+                    deleteNodeName={selectedTreeNodeName}
+                />
+            }
         </>
     )
 }
