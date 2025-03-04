@@ -26,6 +26,8 @@ export const TreeViewItem = React.forwardRef(function TreeItem(
                         deleteBtnClickHandler: props.deleteBtnClickHandler,
                         itemId: props.itemId,
                         itemName: props.label,
+                        children: props.label,
+                        className: '',
                      } as ILabelProps,
                 }}
             />

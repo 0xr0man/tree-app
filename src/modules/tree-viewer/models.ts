@@ -1,7 +1,7 @@
 import { TreeItem2Props } from "@mui/x-tree-view";
 
 export interface ILabelProps {
-    itemId: number
+    itemId: string
     itemName: string
     children: string
     className: string
@@ -13,6 +13,7 @@ export interface ILabelProps {
 export interface ITreeItemProps extends TreeItem2Props {
     addBtnClickHandler: (nodeId: number, nodeName: string) => void
     editBtnClickHandler: (nodeId: number, nodeName: string) => void
+    deleteBtnClickHandler: (nodeId: number, nodeName: string) => void
 }
 
 export interface ITreeViewerProps {

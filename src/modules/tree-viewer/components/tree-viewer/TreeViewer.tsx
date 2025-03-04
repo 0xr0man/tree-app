@@ -1,7 +1,7 @@
 import { Paper } from "@mui/material"
 import { styled } from '@mui/material/styles'
 import { RichTreeView } from '@mui/x-tree-view/RichTreeView';
-import { ITreeItemProps, ITreeViewerProps } from "../../models";
+import { ITreeViewerProps } from "../../models";
 import { TreeViewItem } from "../tree-item/TreeViewItem";
 
 
@@ -22,7 +22,7 @@ export const TreeViewer = (props: ITreeViewerProps) => {
             <TreeViewPaper>
                 <RichTreeView
                     items={[data]}
-                    slots={{ item: TreeViewItem }}
+                    slots={{ item: TreeViewItem as any}}
                     getItemLabel={(item) => item.name}
                     slotProps={{
                         item: {
@@ -30,7 +30,7 @@ export const TreeViewer = (props: ITreeViewerProps) => {
                             editBtnClickHandler,
                             deleteBtnClickHandler,
                         }
-                    } as ITreeItemProps}
+                    } as any} // ITreeItemProps
                 />
             </TreeViewPaper>
         </>
