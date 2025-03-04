@@ -27,6 +27,7 @@ export const AddTreeModalContent = (props: IAddTreeModalContentProps) => {
                 <Button
                     onClick={() => handleAdd(nodeName)}
                     variant="outlined"
+                    disabled={nodeName.length == 0}
                 >
                     Add
                 </Button>

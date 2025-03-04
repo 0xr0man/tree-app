@@ -26,6 +26,7 @@ export const EditTreeModalContent = (props: IEditTreeModalContentProps) => {
                 <Button
                     onClick={() => handleSubmit(nodeName)}
                     variant="outlined"
+                    disabled={nodeName.length == 0}
                 >
                     Edit
                 </Button>
